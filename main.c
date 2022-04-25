@@ -42,13 +42,13 @@ char *parse_filepath(int argc, char *argv[]) {
 }
 
 unsigned int array_from_file(int array[],
-           unsigned int max_size,
-           const char *filepath) {
+           unsigned int max_size) {
     unsigned int length;
     //abrir archivo
     FILE * file;
-    file = fopen(filepath, "r");
+    file = stdin;
     //tamaño
+    printf("Largo del array: ");
     fscanf(file, "%u", &length);
     //verifico que el maxsize este bien y sino toma el valor de length
     if(max_size < length) {
@@ -56,6 +56,7 @@ unsigned int array_from_file(int array[],
     }
     //lectura y agregado de los numeros
     for(unsigned int i = 0; i < length; i = i + 1) {
+        printf("Introduzca el elemento del arreglo: ");
         fscanf(file, "%d", &array[i]);
     }
     //cerrado del archivo
@@ -79,17 +80,13 @@ void array_dump(int a[], unsigned int length) {
 }
 
 
-int main(int argc, char *argv[]) {
-    char *filepath = NULL;
-
-    /* parse the filepath given in command line arguments */
-    filepath = parse_filepath(argc, argv);
+int main(void) {
     
     /* create an array of MAX_SIZE elements */
     int array[MAX_SIZE];
     
     /* parse the file to fill the array and obtain the actual length */
-    unsigned int length = array_from_file(array, MAX_SIZE, filepath);
+    unsigned int length = array_from_file(array, MAX_SIZE);
     
     /*dumping the array*/
     array_dump(array, length);
